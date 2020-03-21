@@ -14,20 +14,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void viewEventList(View view) {
+    public void handleEventList(View view) {
         Intent intent = new Intent(this, EventListActivity.class);
         startActivity(intent);
     }
 
-    public void viewNotifications(View view) {
+    public void handleNotifications(View view) {
 
     }
 
-    public void viewCaretaker(View view) {
+    public void handleCaretaker(View view) {
 
     }
 
-    public void addEvent(View view) {
+    public void handleAddEvent(View view) {
         
     }
 }
