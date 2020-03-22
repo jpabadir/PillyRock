@@ -13,11 +13,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class AddEditEventActivity extends AppCompatActivity {
@@ -45,17 +43,15 @@ public class AddEditEventActivity extends AppCompatActivity {
             events = new JSONArray(currentContents);
             in.close();
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-            // File is not found. events will remain an empty JSON array
+            // Events will remain an empty JSON array
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-
         JSONObject event = buildJSONEventFromUserInput();
         events.put(event);
 
-        FileOutputStream outputStream; //allow a file to be opened for writing
+        FileOutputStream outputStream;
         try {
             outputStream = openFileOutput("events.json", Context.MODE_PRIVATE);
             outputStream.write(events.toString().getBytes());
