@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void handleAddEvent(View view) {
-        
+        Intent intent = new Intent(this, AddEditEventActivity.class);
+        intent.putExtra("activityName", "Add Event");
+        startActivity(intent);
     }
 }
