@@ -8,15 +8,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class AddEditEventActivity extends AppCompatActivity {
     @Override
@@ -31,28 +33,40 @@ public class AddEditEventActivity extends AppCompatActivity {
     }
 
     public void onSaveClicked(View v) {
-        JSONObject event = getJSONEvent();
-
+        String currentContents = "";
         JSONArray events = new JSONArray();
-        events.put(event);
 
+        try {
+            FileInputStream inputStream = openFileInput("events.json");
+            Scanner in = new Scanner(inputStream);
+            while (in.hasNext()) {
+                currentContents += in.next();
+            }
+            events = new JSONArray(currentContents);
+            in.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+            // File is not found. events will remain an empty JSON array
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        JSONObject event = buildJSONEventFromUserInput();
+        events.put(event);
 
         FileOutputStream outputStream; //allow a file to be opened for writing
         try {
-            outputStream = openFileOutput("data.json", Context.MODE_APPEND);
+            outputStream = openFileOutput("events.json", Context.MODE_PRIVATE);
             outputStream.write(events.toString().getBytes());
             outputStream.close();
-
-            // close app and display a toast to confirm that we are writing the info to a files
-            // finish();
-            Toast.makeText(getApplicationContext(), "Writing info to file", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    public JSONObject getJSONEvent() {
+    public JSONObject buildJSONEventFromUserInput() {
         String medicationName = ((TextView) findViewById(R.id.medicationName)).getText().toString();
         String dose = ((TextView) findViewById(R.id.dose)).getText().toString();
         String dosesPerRefill = ((TextView) findViewById(R.id.dosesPerRefill)).getText().toString();
