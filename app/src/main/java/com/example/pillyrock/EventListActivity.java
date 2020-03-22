@@ -46,6 +46,8 @@ public class EventListActivity extends AppCompatActivity implements EventListAda
     }
 
     public void handleAdd(View view) {
-
+        Intent intent = new Intent(this, AddEditEventActivity.class);
+        intent.putExtra("activityName", "Add Event");
+        startActivity(intent);
     }
 }

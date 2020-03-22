@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -23,6 +24,9 @@ public class AddEditEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_event);
+
+        Intent intent = getIntent();
+        getSupportActionBar().setTitle(intent.getStringExtra("activityName"));
     }
 
     public void showTimePickerDialog(View v) {
@@ -30,13 +34,16 @@ public class AddEditEventActivity extends AppCompatActivity {
         newFragment.show(getSupportFragmentManager(), "timePicker");
     }
 
-    public void onSaveClicked(View v) {
-        String currentContents = "";
-        JSONArray events = new JSONArray();
+    public void onCancelClicked(View v) {
+        startEventListActivity();
+    }
 
+    public void onSaveClicked(View v) {
+        JSONArray events = new JSONArray();
         try {
             FileInputStream inputStream = openFileInput("events.json");
             Scanner in = new Scanner(inputStream);
+            String currentContents = "";
             while (in.hasNext()) {
                 currentContents += in.next();
             }
@@ -52,6 +59,7 @@ public class AddEditEventActivity extends AppCompatActivity {
         events.put(event);
 
         FileOutputStream outputStream;
+
         try {
             outputStream = openFileOutput("events.json", Context.MODE_PRIVATE);
             outputStream.write(events.toString().getBytes());
@@ -60,6 +68,7 @@ public class AddEditEventActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        startEventListActivity();
     }
 
     public JSONObject buildJSONEventFromUserInput() {
@@ -96,5 +105,12 @@ public class AddEditEventActivity extends AppCompatActivity {
         }
 
         return event;
+    }
+
+    public void startEventListActivity() {
+        // Note to TA: I'm aware we should use finish() to avoid creating a stack of activities, but finish()
+        // will show a different activity depending on which activity led us to the current one.
+        Intent intent = new Intent(this, EventListActivity.class);
+        startActivity(intent);
     }
 }
