@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AddEditEventActivity extends AppCompatActivity {
@@ -45,8 +46,9 @@ public class AddEditEventActivity extends AppCompatActivity {
             Scanner in = new Scanner(inputStream);
             String currentContents = "";
             while (in.hasNext()) {
-                currentContents += in.next();
+                currentContents += in.next() + " ";
             }
+
             events = new JSONArray(currentContents);
             in.close();
         } catch (FileNotFoundException e) {
@@ -75,15 +77,11 @@ public class AddEditEventActivity extends AppCompatActivity {
         String medicationName = ((TextView) findViewById(R.id.medicationName)).getText().toString();
         String dose = ((TextView) findViewById(R.id.dose)).getText().toString();
         String dosesPerRefill = ((TextView) findViewById(R.id.dosesPerRefill)).getText().toString();
-        String times = ((TextView) findViewById(R.id.timesTextView)).getText().toString();
-        Boolean monday = ((CheckBox) findViewById(R.id.monday)).isChecked();
-        Boolean tuesday = ((CheckBox) findViewById(R.id.tuesday)).isChecked();
-        Boolean wednesday = ((CheckBox) findViewById(R.id.wednesday)).isChecked();
-        Boolean thursday = ((CheckBox) findViewById(R.id.thursday)).isChecked();
-        Boolean friday = ((CheckBox) findViewById(R.id.friday)).isChecked();
-        Boolean saturday = ((CheckBox) findViewById(R.id.saturday)).isChecked();
-        Boolean sunday = ((CheckBox) findViewById(R.id.sunday)).isChecked();
         String notes = ((TextView) findViewById(R.id.notesTextView)).getText().toString();
+
+        String[] daysLong = getDaysLong();
+        String[] daysShort = getDaysShort();
+        String[] times = getTimes();
 
         JSONObject event = new JSONObject();
 
@@ -91,15 +89,11 @@ public class AddEditEventActivity extends AppCompatActivity {
             event.put("medicationName", medicationName);
             event.put("dose", dose);
             event.put("dosesPerRefill", dosesPerRefill);
-            event.put("times", times);
-            event.put("monday", monday);
-            event.put("tuesday", tuesday);
-            event.put("wednesday", wednesday);
-            event.put("thursday", thursday);
-            event.put("friday", friday);
-            event.put("saturday", saturday);
-            event.put("sunday", sunday);
+            event.put("times", new JSONArray(times));
+            event.put("daysLong", new JSONArray(daysLong));
+            event.put("daysShort", new JSONArray(daysShort));
             event.put("notes", notes);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -112,5 +106,57 @@ public class AddEditEventActivity extends AppCompatActivity {
         // will show a different activity depending on which activity led us to the current one.
         Intent intent = new Intent(this, EventListActivity.class);
         startActivity(intent);
+    }
+
+    public String[] getDaysLong() {
+        ArrayList<String> daysLong = new ArrayList<>();
+
+        Boolean monday = ((CheckBox) findViewById(R.id.monday)).isChecked();
+        Boolean tuesday = ((CheckBox) findViewById(R.id.tuesday)).isChecked();
+        Boolean wednesday = ((CheckBox) findViewById(R.id.wednesday)).isChecked();
+        Boolean thursday = ((CheckBox) findViewById(R.id.thursday)).isChecked();
+        Boolean friday = ((CheckBox) findViewById(R.id.friday)).isChecked();
+        Boolean saturday = ((CheckBox) findViewById(R.id.saturday)).isChecked();
+        Boolean sunday = ((CheckBox) findViewById(R.id.sunday)).isChecked();
+
+        if (monday) {
+            daysLong.add("Monday");
+        }
+        if (tuesday) {
+            daysLong.add("Tuesday");
+        }
+        if (wednesday) {
+            daysLong.add("Wednesday");
+        }
+        if (thursday) {
+            daysLong.add("Thursday");
+        }
+        if (friday) {
+            daysLong.add("Friday");
+        }
+        if (saturday) {
+            daysLong.add("Saturday");
+        }
+        if (sunday) {
+            daysLong.add("Sunday");
+        }
+
+        return daysLong.toArray(new String[daysLong.size()]);
+    }
+
+    public String[] getDaysShort() {
+        ArrayList<String> daysShort = new ArrayList<>();
+        String[] daysLong = getDaysLong();
+
+        for (int i = 0; i < daysLong.length; i++) {
+            daysShort.add(daysLong[i].substring(0, 2));
+        }
+
+        return daysShort.toArray(new String[daysShort.size()]);
+    }
+
+    public String[] getTimes() {
+        String times = ((TextView) findViewById(R.id.timesTextView)).getText().toString();
+        return times.split("\n");
     }
 }
