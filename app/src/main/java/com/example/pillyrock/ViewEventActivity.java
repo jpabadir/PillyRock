@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -62,9 +63,8 @@ public class ViewEventActivity extends AppCompatActivity {
             String formattedTimes = String.join("\n", times);
             ((TextView) findViewById(R.id.timesTextView)).setText(formattedTimes);
 
-            String[] days = getArrayFromJSONArray(myEvent.getJSONArray("daysLong"));
-            String formattedDays = String.join(", ", days);
-            ((TextView) findViewById(R.id.daysOfWeekTextView)).setText(formattedDays);
+            String[] daysLong = getArrayFromJSONArray(myEvent.getJSONArray("daysLong"));
+            setCheckBoxesStatusFromEventInfo(daysLong);
 
             ((TextView) findViewById(R.id.notesTextView)).setText(myEvent.get("notes").toString());
         } catch (Exception e) {
@@ -83,5 +83,33 @@ public class ViewEventActivity extends AppCompatActivity {
         }
 
         return array;
+    }
+
+    public void setCheckBoxesStatusFromEventInfo(String[] daysLong) {
+        for (int i = 0; i < daysLong.length; i++) {
+            switch (daysLong[i]) {
+                case "Monday":
+                    ((CheckBox) findViewById(R.id.monday)).setChecked(true);
+                    break;
+                case "Tuesday":
+                    ((CheckBox) findViewById(R.id.tuesday)).setChecked(true);
+                    break;
+                case "Wednesday":
+                    ((CheckBox) findViewById(R.id.wednesday)).setChecked(true);
+                    break;
+                case "Thursday":
+                    ((CheckBox) findViewById(R.id.thursday)).setChecked(true);
+                    break;
+                case "Friday":
+                    ((CheckBox) findViewById(R.id.friday)).setChecked(true);
+                    break;
+                case "Saturday":
+                    ((CheckBox) findViewById(R.id.saturday)).setChecked(true);
+                    break;
+                case "Sunday":
+                    ((CheckBox) findViewById(R.id.sunday)).setChecked(true);
+                    break;
+            }
+        }
     }
 }
