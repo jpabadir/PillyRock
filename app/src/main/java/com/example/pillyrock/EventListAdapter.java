@@ -8,17 +8,18 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.ViewHolder> {
 
-    private List<String> medicationNames;
+    private List<Medication> medications;
     private LayoutInflater inflater;
     private ItemClickListener clickListener;
 
-    EventListAdapter(Context context, List<String> medicationNames) {
+    EventListAdapter(Context context, List<Medication> medications) {
         this.inflater = LayoutInflater.from(context);
-        this.medicationNames = medicationNames;
+        this.medications = medications;
     }
 
     @Override
@@ -29,21 +30,55 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String medicationName = medicationNames.get(position);
-        holder.medicationView.setText(medicationName);
+        Medication medication = medications.get(position);
+
+        String medicationName = medication.medicationName;
+        String dosesPerRefill = medication.dosesPerRefill;
+        List<String> times = medication.times;
+        String timesText = "";
+        if (times.size() > 0) {
+            timesText = times.get(0);
+        }
+        if (times.size() > 1) {
+            timesText += "...";
+        }
+        List<String> days = medication.daysShort;
+        String daysText = "";
+        int numDays = Math.min(days.size(), 3);
+        for (int i = 0; i < numDays; i++) {
+            daysText += days.get(i);
+            if (i < numDays - 1) {
+                daysText += ",";
+            }
+        }
+        String dose = medication.dose;
+
+        holder.medicationName.setText(medicationName);
+        holder.dosesPerRefill.setText(dosesPerRefill);
+        holder.times.setText(timesText);
+        holder.days.setText(daysText);
+        holder.dose.setText(dose);
     }
 
     @Override
     public int getItemCount() {
-        return medicationNames.size();
+        return medications.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView medicationView;
+        TextView medicationName;
+        TextView dosesPerRefill;
+        TextView times;
+        TextView days;
+        TextView dose;
 
         ViewHolder(View itemView) {
             super(itemView);
-            medicationView = itemView.findViewById(R.id.medicationNameTitle);
+            medicationName = itemView.findViewById(R.id.medicationName);
+            dosesPerRefill = itemView.findViewById(R.id.dosesPerRefill);
+            times = itemView.findViewById(R.id.times);
+            days = itemView.findViewById(R.id.days);
+            dose = itemView.findViewById(R.id.dose);
             itemView.setOnClickListener(this);
         }
 
@@ -56,7 +91,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
     }
 
     String getMedicationName(int id) {
-        return medicationNames.get(id);
+        return medications.get(id).medicationName;
     }
 
     void setClickListener(ItemClickListener itemClickListener) {

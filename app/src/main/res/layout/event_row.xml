@@ -5,35 +5,35 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/medicationNameTitle"
+        android:id="@+id/medicationName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.6"
         android:text="Medication Name" />
 
     <TextView
-        android:id="@+id/remainingDosesTitle"
+        android:id="@+id/dosesPerRefill"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.9"
         android:text="31" />
 
     <TextView
-        android:id="@+id/reminderTimeTitle"
+        android:id="@+id/times"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.8"
         android:text="11:30am" />
 
     <TextView
-        android:id="@+id/reminderDaysTitle"
+        android:id="@+id/days"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.8"
         android:text="T,W,F" />
 
     <TextView
-        android:id="@+id/doseSizeTitle"
+        android:id="@+id/dose"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.8"
