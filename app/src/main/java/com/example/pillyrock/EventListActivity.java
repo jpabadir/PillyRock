@@ -69,7 +69,10 @@ public class EventListActivity extends AppCompatActivity implements EventListAda
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(this, "You clicked " + adapter.getMedicationName(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, "You clicked " + adapter.getMedicationName(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, ViewEventActivity.class);
+        intent.putExtra("eventIndex", position);
+        startActivity(intent);
     }
 
     public void handleBack(View view) {
