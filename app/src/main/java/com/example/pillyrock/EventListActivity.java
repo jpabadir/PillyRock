@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -69,7 +70,6 @@ public class EventListActivity extends AppCompatActivity implements EventListAda
 
     @Override
     public void onItemClick(View view, int position) {
-        // Toast.makeText(this, "You clicked " + adapter.getMedicationName(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, ViewEventActivity.class);
         intent.putExtra("eventIndex", position);
         startActivity(intent);
