@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,37 +47,59 @@ public class AddEditEventActivity extends AppCompatActivity {
     }
 
     public void onSaveClicked(View v) {
-        JSONArray events = new JSONArray();
-        try {
-            FileInputStream inputStream = openFileInput("events.json");
-            Scanner in = new Scanner(inputStream);
-            String currentContents = "";
-            while (in.hasNext()) {
-                currentContents += in.next() + " ";
+        if (!getFirstEmptyRequiredField().isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Please enter a " + getFirstEmptyRequiredField(), Toast.LENGTH_SHORT).show();
+        } else {
+            JSONArray events = new JSONArray();
+            try {
+                FileInputStream inputStream = openFileInput("events.json");
+                Scanner in = new Scanner(inputStream);
+                String currentContents = "";
+                while (in.hasNext()) {
+                    currentContents += in.next() + " ";
+                }
+
+                events = new JSONArray(currentContents);
+                in.close();
+            } catch (FileNotFoundException e) {
+                // This will happen if this is the user's first event. In that case,
+                // events will remain an empty JSON array.
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
 
-            events = new JSONArray(currentContents);
-            in.close();
-        } catch (FileNotFoundException e) {
-            // Events will remain an empty JSON array
-        } catch (JSONException e) {
-            e.printStackTrace();
+            JSONObject event = buildJSONEventFromUserInput();
+            events.put(event);
+
+            FileOutputStream outputStream;
+
+            try {
+                outputStream = openFileOutput("events.json", Context.MODE_PRIVATE);
+                outputStream.write(events.toString().getBytes());
+                outputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            startEventListActivity();
         }
+    }
 
-        JSONObject event = buildJSONEventFromUserInput();
-        events.put(event);
+    public String getFirstEmptyRequiredField() {
+        String medicationName = ((TextView) findViewById(R.id.medicationName)).getText().toString();
+        String[] times = getTimes();
+        String[] daysLong = getDaysLong();
 
-        FileOutputStream outputStream;
-
-        try {
-            outputStream = openFileOutput("events.json", Context.MODE_PRIVATE);
-            outputStream.write(events.toString().getBytes());
-            outputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (medicationName.isEmpty()) {
+            return "Medication";
         }
-
-        startEventListActivity();
+        if (times[0].equals("noTimes")) {
+            return "Time";
+        }
+        if (daysLong.length == 0) {
+            return "Day";
+        }
+        return "";
     }
 
     public JSONObject buildJSONEventFromUserInput() {
@@ -163,6 +186,9 @@ public class AddEditEventActivity extends AppCompatActivity {
 
     public String[] getTimes() {
         String times = ((TextView) findViewById(R.id.timesTextView)).getText().toString();
+        if (times.isEmpty()) {
+            times = "noTimes";
+        }
         return times.split("\n");
     }
 
