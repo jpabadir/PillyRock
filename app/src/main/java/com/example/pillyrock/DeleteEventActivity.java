@@ -4,36 +4,37 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.EventLog;
 import android.view.View;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class EventListActivity extends AppCompatActivity implements EventListAdapter.ItemClickListener {
+public class DeleteEventActivity extends AppCompatActivity implements DeleteListAdapter.ItemClickListener {
 
-    EventListAdapter adapter;
+    DeleteListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event_list);
+        setContentView(R.layout.activity_delete_event);
 
         List<Medication> medications = loadMedicationsFromJSON();
 
-        RecyclerView eventList = findViewById(R.id.eventList);
+        RecyclerView eventList = findViewById(R.id.deleteList);
         eventList.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new EventListAdapter(this, medications);
+        adapter = new DeleteListAdapter(this, medications);
         adapter.setClickListener(this);
         eventList.setAdapter(adapter);
     }
@@ -70,24 +71,49 @@ public class EventListActivity extends AppCompatActivity implements EventListAda
 
     @Override
     public void onItemClick(View view, int position) {
-        Intent intent = new Intent(this, ViewEventActivity.class);
-        intent.putExtra("eventIndex", position);
-        startActivity(intent);
+        adapter.toggleEventSelected(position);
     }
 
     public void handleBack(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, EventListActivity.class);
         startActivity(intent);
     }
 
     public void handleDelete(View view) {
-        Intent intent = new Intent(this, DeleteEventActivity.class);
-        startActivity(intent);
-    }
+        JSONArray events = new JSONArray();
+        try {
+            FileInputStream inputStream = openFileInput("events.json");
+            Scanner in = new Scanner(inputStream);
+            String currentContents = "";
+            while (in.hasNext()) {
+                currentContents += in.next() + " ";
+            }
 
-    public void handleAdd(View view) {
-        Intent intent = new Intent(this, AddEditEventActivity.class);
-        intent.putExtra("activityName", "Add Event");
-        startActivity(intent);
+            events = new JSONArray(currentContents);
+            in.close();
+        } catch (FileNotFoundException e) {
+            // Events will remain an empty JSON array
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        int idx = 0;
+        while (idx < events.length()) {
+            if (adapter.isEventSelected(idx)) {
+                events.remove(idx);
+                adapter.removeEvent(idx);
+            } else {
+                idx++;
+            }
+        }
+
+        FileOutputStream outputStream;
+        try {
+            outputStream = openFileOutput("events.json", Context.MODE_PRIVATE);
+            outputStream.write(events.toString().getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -4,26 +4,33 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.ViewHolder> {
+public class DeleteListAdapter extends RecyclerView.Adapter<DeleteListAdapter.ViewHolder> {
 
     private List<Medication> medications;
+    private List<Boolean> selections;
     private LayoutInflater inflater;
     private ItemClickListener clickListener;
 
-    EventListAdapter(Context context, List<Medication> medications) {
+    DeleteListAdapter(Context context, List<Medication> medications) {
         this.inflater = LayoutInflater.from(context);
         this.medications = medications;
+        this.selections = new ArrayList<>();
+        for (int i = 0; i < medications.size(); i++) {
+            selections.add(false);
+        }
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.event_row, parent, false);
+        View view = inflater.inflate(R.layout.delete_row, parent, false);
         return new ViewHolder(view);
     }
 
@@ -51,12 +58,14 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
             }
         }
         String dose = medication.dose;
+        boolean selected = selections.get(position);
 
         holder.medicationName.setText(medicationName);
         holder.dosesPerRefill.setText(dosesPerRefill);
         holder.times.setText(timesText);
         holder.days.setText(daysText);
         holder.dose.setText(dose);
+        holder.selected.setChecked(selected);
     }
 
     @Override
@@ -70,6 +79,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         TextView times;
         TextView days;
         TextView dose;
+        CheckBox selected;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -78,6 +88,8 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
             times = itemView.findViewById(R.id.times);
             days = itemView.findViewById(R.id.days);
             dose = itemView.findViewById(R.id.dose);
+            selected = itemView.findViewById(R.id.selected);
+            selected.setOnCheckedChangeListener(null);
             itemView.setOnClickListener(this);
         }
 
@@ -87,6 +99,21 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
                 clickListener.onItemClick(view, getAdapterPosition());
             }
         }
+    }
+
+    public void toggleEventSelected(int id) {
+        selections.set(id, !selections.get(id));
+        notifyItemChanged(id);
+    }
+
+    public boolean isEventSelected(int id) {
+        return selections.get(id);
+    }
+
+    public void removeEvent(int id) {
+        medications.remove(id);
+        selections.remove(id);
+        notifyItemRemoved(id);
     }
 
     String getMedicationName(int id) {
