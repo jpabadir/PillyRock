@@ -31,8 +31,8 @@ public class AddEditEventActivity extends AppCompatActivity {
         Intent intent = getIntent();
         getSupportActionBar().setTitle(intent.getStringExtra("activityName"));
         if (intent.getStringExtra("activityName").equals("Edit Event")) {
-            setInfoOfEvent();
             eventIndex = intent.getIntExtra("eventIndex", -1);
+            setInfoOfEvent();
         }
     }
 
@@ -167,6 +167,7 @@ public class AddEditEventActivity extends AppCompatActivity {
     }
 
     public void setInfoOfEvent() {
+        // System.out.println(eventIndex);
         try {
             FileInputStream inputStream = openFileInput("events.json");
             Scanner in = new Scanner(inputStream);
