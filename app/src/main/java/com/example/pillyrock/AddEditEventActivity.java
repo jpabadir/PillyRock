@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,6 +22,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AddEditEventActivity extends AppCompatActivity {
+    int eventIndex;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +31,10 @@ public class AddEditEventActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         getSupportActionBar().setTitle(intent.getStringExtra("activityName"));
+        if (intent.getStringExtra("activityName").equals("Edit Event")) {
+            eventIndex = intent.getIntExtra("eventIndex", -1);
+            setInfoOfEvent();
+        }
     }
 
     public void showTimePickerDialog(View v) {
@@ -39,38 +46,61 @@ public class AddEditEventActivity extends AppCompatActivity {
         startEventListActivity();
     }
 
-    public void onDoneClicked(View v) {
-        JSONArray events = new JSONArray();
-        try {
-            FileInputStream inputStream = openFileInput("events.json");
-            Scanner in = new Scanner(inputStream);
-            String currentContents = "";
-            while (in.hasNext()) {
-                currentContents += in.next() + " ";
+
+    public void onSaveClicked(View v) {
+        if (!getFirstEmptyRequiredField().isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Please enter a " + getFirstEmptyRequiredField(), Toast.LENGTH_SHORT).show();
+        } else {
+            JSONArray events = new JSONArray();
+            try {
+                FileInputStream inputStream = openFileInput("events.json");
+                Scanner in = new Scanner(inputStream);
+                String currentContents = "";
+                while (in.hasNext()) {
+                    currentContents += in.next() + " ";
+                }
+
+                events = new JSONArray(currentContents);
+                in.close();
+            } catch (FileNotFoundException e) {
+                // This will happen if this is the user's first event. In that case,
+                // events will remain an empty JSON array.
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
 
-            events = new JSONArray(currentContents);
-            in.close();
-        } catch (FileNotFoundException e) {
-            // Events will remain an empty JSON array
-        } catch (JSONException e) {
-            e.printStackTrace();
+            JSONObject event = buildJSONEventFromUserInput();
+            events.put(event);
+
+            FileOutputStream outputStream;
+
+            try {
+                outputStream = openFileOutput("events.json", Context.MODE_PRIVATE);
+                outputStream.write(events.toString().getBytes());
+                outputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            startEventListActivity();
         }
+    }
 
-        JSONObject event = buildJSONEventFromUserInput();
-        events.put(event);
+    public String getFirstEmptyRequiredField() {
+        String medicationName = ((TextView) findViewById(R.id.medicationName)).getText().toString();
+        String[] times = getTimes();
+        String[] daysLong = getDaysLong();
 
-        FileOutputStream outputStream;
-
-        try {
-            outputStream = openFileOutput("events.json", Context.MODE_PRIVATE);
-            outputStream.write(events.toString().getBytes());
-            outputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (medicationName.isEmpty()) {
+            return "Medication";
         }
-
-        startEventListActivity();
+        if (times[0].equals("noTimes")) {
+            return "Time";
+        }
+        if (daysLong.length == 0) {
+            return "Day";
+        }
+        return "";
     }
 
     public JSONObject buildJSONEventFromUserInput() {
@@ -157,6 +187,83 @@ public class AddEditEventActivity extends AppCompatActivity {
 
     public String[] getTimes() {
         String times = ((TextView) findViewById(R.id.timesTextView)).getText().toString();
+        if (times.isEmpty()) {
+            times = "noTimes";
+        }
         return times.split("\n");
+    }
+
+    public void setInfoOfEvent() {
+        // System.out.println(eventIndex);
+        try {
+            FileInputStream inputStream = openFileInput("events.json");
+            Scanner in = new Scanner(inputStream);
+            String currentContents = "";
+            while (in.hasNext()) {
+                currentContents += in.next() + " ";
+            }
+
+            JSONArray events = new JSONArray(currentContents);
+            in.close();
+
+            JSONObject myEvent = (JSONObject) (events.get(eventIndex));
+
+            ((TextView) findViewById(R.id.medicationName)).setText(myEvent.get("medicationName").toString());
+            ((TextView) findViewById(R.id.dose)).setText(myEvent.get("dose").toString());
+            ((TextView) findViewById(R.id.dosesPerRefill)).setText(myEvent.get("dosesPerRefill").toString());
+
+            String[] times = getArrayFromJSONArray(myEvent.getJSONArray("times"));
+            String formattedTimes = String.join("\n", times);
+            ((TextView) findViewById(R.id.timesTextView)).setText(formattedTimes);
+
+
+            String[] daysLong = getArrayFromJSONArray(myEvent.getJSONArray("daysLong"));
+            setCheckBoxesStatusFromEventInfo(daysLong);
+
+            ((TextView) findViewById(R.id.notesTextView)).setText(myEvent.get("notes").toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String[] getArrayFromJSONArray(JSONArray jsonArray) {
+        String[] array = new String[jsonArray.length()];
+        for (int i = 0; i < jsonArray.length(); i++) {
+            try {
+                array[i] = (String) jsonArray.get(i);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return array;
+    }
+
+    public void setCheckBoxesStatusFromEventInfo(String[] daysLong) {
+        for (int i = 0; i < daysLong.length; i++) {
+            switch (daysLong[i]) {
+                case "Monday":
+                    ((CheckBox) findViewById(R.id.monday)).setChecked(true);
+                    break;
+                case "Tuesday":
+                    ((CheckBox) findViewById(R.id.tuesday)).setChecked(true);
+                    break;
+                case "Wednesday":
+                    ((CheckBox) findViewById(R.id.wednesday)).setChecked(true);
+                    break;
+                case "Thursday":
+                    ((CheckBox) findViewById(R.id.thursday)).setChecked(true);
+                    break;
+                case "Friday":
+                    ((CheckBox) findViewById(R.id.friday)).setChecked(true);
+                    break;
+                case "Saturday":
+                    ((CheckBox) findViewById(R.id.saturday)).setChecked(true);
+                    break;
+                case "Sunday":
+                    ((CheckBox) findViewById(R.id.sunday)).setChecked(true);
+                    break;
+            }
+        }
     }
 }

@@ -11,6 +11,10 @@
         android:theme="@style/AppTheme">
         <activity android:name=".EditCaretakerActivity"></activity>
         <activity android:name=".CaretakerActivity" />
+        <activity android:name=".DeleteEventActivity"></activity>
+        <activity
+            android:name=".ViewEventActivity"
+            android:label="View Event" />
         <activity
             android:name=".AddEditEventActivity"
             android:exported="true" />
