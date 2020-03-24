@@ -81,7 +81,8 @@ public class EventListActivity extends AppCompatActivity implements EventListAda
     }
 
     public void handleDelete(View view) {
-
+        Intent intent = new Intent(this, DeleteEventActivity.class);
+        startActivity(intent);
     }
 
     public void handleAdd(View view) {

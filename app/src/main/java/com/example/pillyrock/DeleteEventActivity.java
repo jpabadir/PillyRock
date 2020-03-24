@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.EventLog;
 import android.view.View;
 
 import org.json.JSONArray;
@@ -23,7 +24,6 @@ import java.util.Scanner;
 public class DeleteEventActivity extends AppCompatActivity implements DeleteListAdapter.ItemClickListener {
 
     DeleteListAdapter adapter;
-    List<Boolean> selected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +31,8 @@ public class DeleteEventActivity extends AppCompatActivity implements DeleteList
         setContentView(R.layout.activity_delete_event);
 
         List<Medication> medications = loadMedicationsFromJSON();
-        selected = new ArrayList<>(medications.size());
-        for (int i = 0; i < selected.size(); i ++) {
-            selected.set(i, false);
-        }
 
-        RecyclerView eventList = findViewById(R.id.eventList);
+        RecyclerView eventList = findViewById(R.id.deleteList);
         eventList.setLayoutManager(new LinearLayoutManager(this));
         adapter = new DeleteListAdapter(this, medications);
         adapter.setClickListener(this);
@@ -75,13 +71,11 @@ public class DeleteEventActivity extends AppCompatActivity implements DeleteList
 
     @Override
     public void onItemClick(View view, int position) {
-        Intent intent = new Intent(this, ViewEventActivity.class);
-        intent.putExtra("eventIndex", position);
-        startActivity(intent);
+        adapter.toggleEventSelected(position);
     }
 
     public void handleBack(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, EventListActivity.class);
         startActivity(intent);
     }
 
@@ -105,9 +99,9 @@ public class DeleteEventActivity extends AppCompatActivity implements DeleteList
 
         int idx = 0;
         while (idx < events.length()) {
-            if (selected.get(idx)) {
+            if (adapter.isEventSelected(idx)) {
                 events.remove(idx);
-                selected.remove(idx);
+                adapter.removeEvent(idx);
             } else {
                 idx++;
             }

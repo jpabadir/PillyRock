@@ -54,6 +54,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.8"
             android:text="Dose" />
+
+        <TextView
+            android:id="@+id/selectedTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.9" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -91,8 +97,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="30dp"
-        android:text="Add"
-        android:onClick="handleAdd"
+        android:text="Delete"
+        android:onClick="handleDelete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
