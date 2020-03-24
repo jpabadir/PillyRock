@@ -46,6 +46,7 @@ public class AddEditEventActivity extends AppCompatActivity {
         startEventListActivity();
     }
 
+
     public void onSaveClicked(View v) {
         if (!getFirstEmptyRequiredField().isEmpty()) {
             Toast.makeText(getApplicationContext(), "Please enter a " + getFirstEmptyRequiredField(), Toast.LENGTH_SHORT).show();
