@@ -10,20 +10,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.ViewHolder> {
+public class DeleteListAdapter extends RecyclerView.Adapter<DeleteListAdapter.ViewHolder> {
 
     private List<Medication> medications;
+    private List<Boolean> selections;
     private LayoutInflater inflater;
     private ItemClickListener clickListener;
 
-    EventListAdapter(Context context, List<Medication> medications) {
+    DeleteListAdapter(Context context, List<Medication> medications) {
         this.inflater = LayoutInflater.from(context);
         this.medications = medications;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.event_row, parent, false);
+        View view = inflater.inflate(R.layout.delete_row, parent, false);
         return new ViewHolder(view);
     }
 
