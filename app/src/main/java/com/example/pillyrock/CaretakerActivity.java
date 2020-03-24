@@ -1,23 +1,19 @@
 package com.example.pillyrock;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.OnLifecycleEvent;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.JsonReader;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONObject;
-import org.w3c.dom.Text;
+import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONObject;
+
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class CaretakerActivity extends AppCompatActivity {
@@ -69,6 +65,20 @@ public class CaretakerActivity extends AppCompatActivity {
     }
 
     public void onClickDelete(View view) {
-        //TODO this will delete the caretaker.json data
+        // delete the caretaker.json data
+        File caretaker = new File("caretaker.json");
+        caretaker.delete();
+        // send toast to user
+        Context context = getApplicationContext();
+        CharSequence msg = "Caretaker deleted";
+        int dur = Toast.LENGTH_SHORT;
+        Toast.makeText(context, msg, dur).show();
+        // reset fields to default values
+        TextView id = findViewById(R.id.caretakerID);
+        TextView name = findViewById(R.id.caretakerName);
+
+        id.setText("Enter Caretaker ID");
+        name.setText("Enter Caretaker Name");
+
     }
 }
