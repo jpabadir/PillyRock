@@ -24,7 +24,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void handleCaretaker(View view) {
-
+        Intent intent = new Intent(this, CaretakerActivity.class);
+        startActivity(intent);
     }
 
     public void handleAddEvent(View view) {

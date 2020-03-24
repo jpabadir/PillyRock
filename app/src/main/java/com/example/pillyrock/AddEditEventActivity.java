@@ -39,7 +39,7 @@ public class AddEditEventActivity extends AppCompatActivity {
         startEventListActivity();
     }
 
-    public void onSaveClicked(View v) {
+    public void onDoneClicked(View v) {
         JSONArray events = new JSONArray();
         try {
             FileInputStream inputStream = openFileInput("events.json");
