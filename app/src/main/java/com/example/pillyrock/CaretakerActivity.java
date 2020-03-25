@@ -17,6 +17,9 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class CaretakerActivity extends AppCompatActivity {
+
+    JSONObject caretaker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +40,7 @@ public class CaretakerActivity extends AppCompatActivity {
             Scanner in = new Scanner(inputStream);
             String json = in.nextLine();
             in.close();
-            JSONObject caretaker = new JSONObject(json);
+            caretaker = new JSONObject(json);
 
             TextView id = findViewById(R.id.caretakerID);
             TextView name = findViewById(R.id.caretakerName);
@@ -56,8 +59,20 @@ public class CaretakerActivity extends AppCompatActivity {
     }
 
     public void handleEditCaretaker(View view) {
-        Intent intent = new Intent(this, EditCaretakerActivity.class);
-        startActivity(intent);
+        try {
+            Intent intent = new Intent(this, EditCaretakerActivity.class);
+            Bundle bundle = new Bundle();
+
+            TextView id = findViewById(R.id.caretakerID);
+            TextView name = findViewById(R.id.caretakerName);
+
+            bundle.putString("caretakerID", id.getText().toString());
+            bundle.putString("caretakerName", name.getText().toString());
+            intent.putExtras(bundle);
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void onClickDone(View view) {

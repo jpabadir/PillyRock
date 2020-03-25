@@ -1,17 +1,15 @@
 package com.example.pillyrock;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import org.json.JSONArray;
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.json.JSONObject;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 public class EditCaretakerActivity extends AppCompatActivity {
@@ -20,6 +18,21 @@ public class EditCaretakerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_caretaker);
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+
+        TextView id = findViewById(R.id.caretakerID);
+        TextView name = findViewById(R.id.caretakerName);
+
+        if (bundle.getString("caretakerID").isEmpty()) {
+            id.setText("New Caretaker ID");
+        } else if (bundle.getString("caretakerName").isEmpty()) {
+            name.setText("New Caretaker Name");
+        } else {
+            id.setText(bundle.getString("caretakerID"));
+            name.setText(bundle.getString("caretakerName"));
+        }
     }
     public void onDoneClicked(View v) {
         JSONObject caretaker = new JSONObject();
