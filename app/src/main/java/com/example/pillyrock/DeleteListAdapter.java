@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -89,7 +90,7 @@ public class DeleteListAdapter extends RecyclerView.Adapter<DeleteListAdapter.Vi
             days = itemView.findViewById(R.id.days);
             dose = itemView.findViewById(R.id.dose);
             selected = itemView.findViewById(R.id.selected);
-            selected.setOnCheckedChangeListener(null);
+            selected.setOnClickListener(this);
             itemView.setOnClickListener(this);
         }
 
