@@ -29,8 +29,9 @@ public class TimePickerFragment extends DialogFragment
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         String morningOrEve = hourOfDay >= 12 ? "PM" : "AM";
         int hourToUse = hourOfDay % 12;
-        String formattedTime = hourToUse < 10? "0" : "";
-        formattedTime += hourToUse + ":" + minute + " " + morningOrEve + "\n";
+        String formattedTime = hourToUse < 10 ? "0" : "";
+        String minuteLeadingZero = minute < 10? "0" : "";
+        formattedTime += hourToUse + ":" + minuteLeadingZero + minute + " " + morningOrEve + "\n";
 
         TextView timesTextView = getActivity().findViewById(R.id.timesTextView);
         String currentText = timesTextView.getText().toString();
