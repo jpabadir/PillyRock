@@ -283,8 +283,7 @@ public class AddEditEventActivity extends AppCompatActivity {
 
             String[] times = getArrayFromJSONArray(myEvent.getJSONArray("times"));
             String formattedTimes = String.join("\n", times);
-            ((TextView) findViewById(R.id.timesTextView)).setText(formattedTimes);
-
+            ((TextView) findViewById(R.id.timesTextView)).setText(formattedTimes + "\n");
 
             String[] daysLong = getArrayFromJSONArray(myEvent.getJSONArray("daysLong"));
             setCheckBoxesStatusFromEventInfo(daysLong);
