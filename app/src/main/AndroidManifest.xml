@@ -13,6 +13,10 @@
         <activity android:name=".CaretakerActivity" />
         <activity android:name=".DeleteEventActivity"></activity>
         <activity
+            android:name=".NotificationSettingsActivity"
+            android:label="Notification Settings">
+        </activity>
+        <activity
             android:name=".ViewEventActivity"
             android:label="View Event" />
         <activity

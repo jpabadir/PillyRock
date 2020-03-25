@@ -20,7 +20,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void handleNotifications(View view) {
-
+        Intent intent = new Intent(this, NotificationSettingsActivity.class);
+        startActivity(intent);
     }
 
     public void handleCaretaker(View view) {
