@@ -23,6 +23,7 @@ import java.util.Scanner;
 
 public class AddEditEventActivity extends AppCompatActivity {
     int eventIndex;
+    String mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +31,9 @@ public class AddEditEventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_edit_event);
 
         Intent intent = getIntent();
-        getSupportActionBar().setTitle(intent.getStringExtra("activityName"));
-        if (intent.getStringExtra("activityName").equals("Edit Event")) {
+        mode = intent.getStringExtra("activityName");
+        getSupportActionBar().setTitle(mode);
+        if (mode.equals("Edit Event")) {
             eventIndex = intent.getIntExtra("eventIndex", -1);
             setInfoOfEvent();
         }
@@ -54,39 +56,104 @@ public class AddEditEventActivity extends AppCompatActivity {
         if (!getFirstEmptyRequiredField().isEmpty()) {
             Toast.makeText(getApplicationContext(), "Please enter a " + getFirstEmptyRequiredField(), Toast.LENGTH_SHORT).show();
         } else {
-            JSONArray events = new JSONArray();
-            try {
-                FileInputStream inputStream = openFileInput("events.json");
-                Scanner in = new Scanner(inputStream);
-                String currentContents = "";
-                while (in.hasNext()) {
-                    currentContents += in.next() + " ";
-                }
-
-                events = new JSONArray(currentContents);
-                in.close();
-            } catch (FileNotFoundException e) {
-                // This will happen if this is the user's first event. In that case,
-                // events will remain an empty JSON array.
-            } catch (JSONException e) {
-                e.printStackTrace();
+            if (mode.equals("Add Event")) {
+                saveNewEvent();
+            } else {
+                editExistingEvent();
             }
 
-            JSONObject event = buildJSONEventFromUserInput();
-            events.put(event);
-
-            FileOutputStream outputStream;
-
-            try {
-                outputStream = openFileOutput("events.json", Context.MODE_PRIVATE);
-                outputStream.write(events.toString().getBytes());
-                outputStream.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            startEventListActivity();
         }
+    }
+
+    public void editExistingEvent() {
+        JSONArray events = new JSONArray();
+        try {
+            FileInputStream inputStream = openFileInput("events.json");
+            Scanner in = new Scanner(inputStream);
+            String currentContents = "";
+            while (in.hasNext()) {
+                currentContents += in.next() + " ";
+            }
+
+            events = new JSONArray(currentContents);
+            in.close();
+        } catch (FileNotFoundException e) {
+            // This should not happen here. The file should exist, since we're
+            // editing an existing event
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JSONObject event = buildJSONEventFromUserInput();
+
+        JSONArray updatedEvents = replaceValueAtIndexInJSONArray(events, event, eventIndex);
+
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = openFileOutput("events.json", Context.MODE_PRIVATE);
+            outputStream.write(updatedEvents.toString().getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        startEventListActivity();
+    }
+
+    public JSONArray replaceValueAtIndexInJSONArray(JSONArray oldJSONArray, JSONObject newValue, int index) {
+        JSONArray updatedArray = new JSONArray();
+
+        for (int i = 0; i < oldJSONArray.length(); i++) {
+            if (i != index) {
+                try {
+                    updatedArray.put(oldJSONArray.get(i));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                updatedArray.put(newValue);
+            }
+        }
+
+        return updatedArray;
+    }
+
+    public void saveNewEvent() {
+        JSONArray events = new JSONArray();
+        try {
+            FileInputStream inputStream = openFileInput("events.json");
+            Scanner in = new Scanner(inputStream);
+            String currentContents = "";
+            while (in.hasNext()) {
+                currentContents += in.next() + " ";
+            }
+
+            events = new JSONArray(currentContents);
+            in.close();
+        } catch (FileNotFoundException e) {
+            // This will happen if this is the user's first event. In that case,
+            // events will remain an empty JSON array.
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JSONObject event = buildJSONEventFromUserInput();
+        events.put(event);
+
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = openFileOutput("events.json", Context.MODE_PRIVATE);
+            outputStream.write(events.toString().getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        startEventListActivity();
+
     }
 
     public String getFirstEmptyRequiredField() {
@@ -197,7 +264,6 @@ public class AddEditEventActivity extends AppCompatActivity {
     }
 
     public void setInfoOfEvent() {
-        // System.out.println(eventIndex);
         try {
             FileInputStream inputStream = openFileInput("events.json");
             Scanner in = new Scanner(inputStream);
