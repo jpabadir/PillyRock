@@ -46,6 +46,9 @@ public class AddEditEventActivity extends AppCompatActivity {
         startEventListActivity();
     }
 
+    public void onClearTimesClicked(View v) {
+        ((TextView) findViewById(R.id.timesTextView)).setText("");
+    }
 
     public void onSaveClicked(View v) {
         if (!getFirstEmptyRequiredField().isEmpty()) {
