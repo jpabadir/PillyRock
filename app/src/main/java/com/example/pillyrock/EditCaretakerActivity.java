@@ -34,8 +34,13 @@ public class EditCaretakerActivity extends AppCompatActivity {
             name.setText(bundle.getString("caretakerName"));
         }
     }
+
+    public void onCancelClicked(View v) {
+        finish();
+    }
+
     public void onDoneClicked(View v) {
-        JSONObject caretaker = new JSONObject();
+        JSONObject caretaker;
         try {
             FileOutputStream outputStream = openFileOutput("caretaker.json", MODE_PRIVATE);
             caretaker = createJSONCaretakerFromInput();
