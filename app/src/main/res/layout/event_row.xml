@@ -13,14 +13,6 @@
         android:textAppearance="@style/TextTheme" />
 
     <TextView
-        android:id="@+id/dosesPerRefill"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.9"
-        android:text="31"
-        android:textAppearance="@style/TextTheme" />
-
-    <TextView
         android:id="@+id/times"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

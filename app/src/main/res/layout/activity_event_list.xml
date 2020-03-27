@@ -64,14 +64,6 @@
             android:textAppearance="@style/HeaderTheme" />
 
         <TextView
-            android:id="@+id/remainingDosesTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.9"
-            android:text="DR"
-            android:textAppearance="@style/HeaderTheme" />
-
-        <TextView
             android:id="@+id/reminderTimeTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

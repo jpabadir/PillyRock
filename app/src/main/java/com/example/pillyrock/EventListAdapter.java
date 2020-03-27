@@ -32,7 +32,6 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         Medication medication = medications.get(position);
 
         String medicationName = medication.medicationName;
-        String dosesPerRefill = medication.dosesPerRefill;
         List<String> times = medication.times;
         String timesText = "";
         if (times.size() > 0) {
@@ -53,7 +52,6 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         String dose = medication.dose;
 
         holder.medicationName.setText(medicationName);
-        holder.dosesPerRefill.setText(dosesPerRefill);
         holder.times.setText(timesText);
         holder.days.setText(daysText);
         holder.dose.setText(dose);
@@ -66,7 +64,6 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView medicationName;
-        TextView dosesPerRefill;
         TextView times;
         TextView days;
         TextView dose;
@@ -74,7 +71,6 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         ViewHolder(View itemView) {
             super(itemView);
             medicationName = itemView.findViewById(R.id.medicationName);
-            dosesPerRefill = itemView.findViewById(R.id.dosesPerRefill);
             times = itemView.findViewById(R.id.times);
             days = itemView.findViewById(R.id.days);
             dose = itemView.findViewById(R.id.dose);
