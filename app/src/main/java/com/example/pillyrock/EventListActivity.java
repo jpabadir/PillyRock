@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -38,7 +39,9 @@ public class EventListActivity extends AppCompatActivity implements EventListAda
         eventList.setAdapter(adapter);
 
         if (medications.size() == 0) {
-            findViewById(R.id.deleteButton).setEnabled(false);
+            Button deleteButton = findViewById(R.id.deleteButton);
+            deleteButton.setEnabled(false);
+            deleteButton.setAlpha(0.75F);
         }
     }
 
