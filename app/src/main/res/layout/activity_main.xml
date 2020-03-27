@@ -67,7 +67,7 @@
 
     <Button
         android:id="@+id/editProfileButton"
-        android:layout_width="@dimen/button_width"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/btn_mrgn"
         android:layout_marginBottom="@dimen/btn_mrgn"
@@ -85,7 +85,7 @@
 
     <Button
         android:id="@+id/addEventButton"
-        android:layout_width="@dimen/button_width"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/btn_mrgn"
         android:layout_marginBottom="@dimen/btn_mrgn"
