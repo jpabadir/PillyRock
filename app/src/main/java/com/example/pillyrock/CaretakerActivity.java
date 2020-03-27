@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.Scanner;
 
 public class CaretakerActivity extends AppCompatActivity {
@@ -44,13 +46,19 @@ public class CaretakerActivity extends AppCompatActivity {
 
             TextView id = findViewById(R.id.caretakerID);
             TextView name = findViewById(R.id.caretakerName);
-
-            id.setText(caretaker.getString("caretakerID"));
-            name.setText(caretaker.getString("caretakerName"));
+            if(caretaker.getString("caretakerID").isEmpty()) {
+                id.setText("No caretaker added");
+                name.setText("");
+                ((Button) findViewById(R.id.caretakerEdit)).setText("Add");
+            } else {
+                id.setText(caretaker.getString("caretakerID"));
+                name.setText(caretaker.getString("caretakerName"));
+                ((Button) findViewById(R.id.caretakerEdit)).setText("Edit");
+            }
         } catch (FileNotFoundException e) {
             // send toast message to user if caretaker.json does not exist
             Context context = getApplicationContext();
-            CharSequence msg = "No caretaker found, please set a caretaker";
+            CharSequence msg = "No caretaker found";
             int dur = Toast.LENGTH_SHORT;
             Toast.makeText(context, msg, dur).show();
         } catch (Exception e) {
@@ -81,8 +89,15 @@ public class CaretakerActivity extends AppCompatActivity {
 
     public void onClickDelete(View view) {
         // delete the caretaker.json data
-        File caretaker = new File("caretaker.json");
-        caretaker.delete();
+        try {
+            FileOutputStream outputStream = openFileOutput("caretaker.json", MODE_PRIVATE);
+            JSONObject caretaker = new JSONObject();
+            caretaker.put("caretakerID", "");
+            caretaker.put("caretakerName", "");
+            outputStream.write(caretaker.toString().getBytes());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         // send toast to user
         Context context = getApplicationContext();
         CharSequence msg = "Caretaker deleted";
@@ -92,8 +107,9 @@ public class CaretakerActivity extends AppCompatActivity {
         TextView id = findViewById(R.id.caretakerID);
         TextView name = findViewById(R.id.caretakerName);
 
-        id.setText("Enter Caretaker ID");
-        name.setText("Enter Caretaker Name");
+        id.setText("No caretaker added");
+        name.setText("");
+        ((Button) findViewById(R.id.caretakerEdit)).setText("Add");
 
     }
 }

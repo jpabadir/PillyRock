@@ -26,41 +26,39 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.6"
-            android:text="Medication Name" />
-
-        <TextView
-            android:id="@+id/remainingDosesTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.9"
-            android:text="DR" />
+            android:text="Medication Name"
+            android:textAlignment="viewStart"
+            android:textAppearance="@style/HeaderTheme" />
 
         <TextView
             android:id="@+id/reminderTimeTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.8"
-            android:text="Time" />
+            android:text="Time"
+            android:textAppearance="@style/HeaderTheme" />
 
         <TextView
             android:id="@+id/reminderDaysTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.8"
-            android:text="Days" />
+            android:text="Days"
+            android:textAppearance="@style/HeaderTheme" />
 
         <TextView
             android:id="@+id/doseSizeTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.8"
-            android:text="Dose" />
+            android:text="Dose"
+            android:textAppearance="@style/HeaderTheme" />
 
         <TextView
             android:id="@+id/selectedTitle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.9" />
+            android:layout_height="match_parent"
+            android:layout_weight="0.8" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -86,6 +84,7 @@
         android:background="@drawable/button"
         android:onClick="handleBack"
         android:text="Back"
+        android:textAppearance="@style/ButtonTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -102,6 +101,7 @@
         android:background="@drawable/button"
         android:onClick="handleDelete"
         android:text="Delete"
+        android:textAppearance="@style/ButtonTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

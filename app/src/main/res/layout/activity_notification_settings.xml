@@ -11,7 +11,7 @@
         android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="180dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/remind_me" />
@@ -20,9 +20,10 @@
         android:id="@+id/remind_me"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:text="Send me reminders via:"
+        android:textAppearance="@style/HeaderTheme"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,9 +31,10 @@
         android:id="@+id/emailtext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:text="Email"
+        android:textAppearance="@style/TextTheme"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/remind_me" />
 
@@ -40,9 +42,10 @@
         android:id="@+id/phonetext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:text="Automated Phonecall"
+        android:textAppearance="@style/TextTheme"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailtext" />
 
@@ -50,27 +53,28 @@
         android:id="@+id/phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="180dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toBottomOf="@+id/emailtext" />
 
     <CheckBox
         android:id="@+id/sms"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="180dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone" />
+        app:layout_constraintTop_toBottomOf="@+id/phonetext" />
 
     <TextView
         android:id="@+id/smstext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:text="Text Message"
+        android:textAppearance="@style/TextTheme"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phonetext" />
 
@@ -78,9 +82,10 @@
         android:id="@+id/pushnotiftext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:text="Push Notification"
+        android:textAppearance="@style/TextTheme"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/smstext" />
 
@@ -88,10 +93,10 @@
         android:id="@+id/pushnotif"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="180dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sms" />
+        app:layout_constraintTop_toBottomOf="@+id/smstext" />
 
     <Button
         android:id="@+id/cancel"
@@ -102,6 +107,7 @@
         android:background="@drawable/button"
         android:onClick="onCancelClicked"
         android:text="@android:string/cancel"
+        android:textAppearance="@style/ButtonTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -114,6 +120,7 @@
         android:background="@drawable/button"
         android:onClick="onSaveClicked"
         android:text="Save"
+        android:textAppearance="@style/ButtonTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,13 @@
 package com.example.pillyrock;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,10 +28,8 @@ public class EditCaretakerActivity extends AppCompatActivity {
         TextView id = findViewById(R.id.caretakerID);
         TextView name = findViewById(R.id.caretakerName);
 
-        if (bundle.getString("caretakerID").isEmpty()) {
-            id.setText("New Caretaker ID");
-        } else if (bundle.getString("caretakerName").isEmpty()) {
-            name.setText("New Caretaker Name");
+        if(bundle.getString("caretakerID").equals("No caretaker added")) {
+            id.setText("");
         } else {
             id.setText(bundle.getString("caretakerID"));
             name.setText(bundle.getString("caretakerName"));
@@ -39,16 +40,29 @@ public class EditCaretakerActivity extends AppCompatActivity {
         finish();
     }
 
-    public void onDoneClicked(View v) {
-        JSONObject caretaker;
-        try {
-            FileOutputStream outputStream = openFileOutput("caretaker.json", MODE_PRIVATE);
-            caretaker = createJSONCaretakerFromInput();
-            outputStream.write(caretaker.toString().getBytes());
-        } catch (Exception e) {
-            e.printStackTrace();
+    public void onSaveClicked(View v) {
+        EditText id = findViewById(R.id.caretakerID);
+        String caretakerID = id.getText().toString();
+
+        EditText name = findViewById(R.id.caretakerName);
+        String caretakerName = name.getText().toString();
+
+        if(caretakerID.isEmpty() || caretakerName.isEmpty()) {
+            Context context = getApplicationContext();
+            CharSequence msg = "Fields cannot be empty";
+            int dur = Toast.LENGTH_LONG;
+            Toast.makeText(context, msg, dur).show();
+        } else {
+            JSONObject caretaker;
+            try {
+                FileOutputStream outputStream = openFileOutput("caretaker.json", MODE_PRIVATE);
+                caretaker = createJSONCaretakerFromInput();
+                outputStream.write(caretaker.toString().getBytes());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            finish();
         }
-        finish();
     }
 
     private JSONObject createJSONCaretakerFromInput() {

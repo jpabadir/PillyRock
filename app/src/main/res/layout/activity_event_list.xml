@@ -26,14 +26,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="List" />
+            android:clickable="false"
+            android:text="List"
+            android:textAppearance="@style/TextTheme" />
 
         <RadioButton
             android:id="@+id/calendarToggle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Calendar" />
+            android:clickable="false"
+            android:text="Calendar"
+            android:textAppearance="@style/TextTheme" />
     </RadioGroup>
 
     <LinearLayout
@@ -55,35 +59,40 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.6"
-            android:text="Medication Name" />
+            android:text="Medication Name"
+            android:textAppearance="@style/HeaderTheme" />
 
         <TextView
             android:id="@+id/remainingDosesTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.9"
-            android:text="DR" />
+            android:text="DR"
+            android:textAppearance="@style/HeaderTheme" />
 
         <TextView
             android:id="@+id/reminderTimeTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.8"
-            android:text="Time" />
+            android:text="Time"
+            android:textAppearance="@style/HeaderTheme" />
 
         <TextView
             android:id="@+id/reminderDaysTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.8"
-            android:text="Days" />
+            android:text="Days"
+            android:textAppearance="@style/HeaderTheme" />
 
         <TextView
             android:id="@+id/doseSizeTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.8"
-            android:text="Dose" />
+            android:text="Dose"
+            android:textAppearance="@style/HeaderTheme" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -109,6 +118,7 @@
         android:background="@drawable/button"
         android:onClick="handleBack"
         android:text="Back"
+        android:textAppearance="@style/ButtonTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -124,6 +134,7 @@
         android:background="@drawable/button"
         android:onClick="handleDelete"
         android:text="Delete"
+        android:textAppearance="@style/ButtonTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -139,6 +150,7 @@
         android:background="@drawable/button"
         android:onClick="handleAdd"
         android:text="Add"
+        android:textAppearance="@style/ButtonTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

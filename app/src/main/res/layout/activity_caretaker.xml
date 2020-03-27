@@ -14,7 +14,8 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="30dp"
-        android:text="Enter Caretaker ID"
+        android:text="No caretaker added"
+        android:textAppearance="@style/HeaderTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +27,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="30dp"
-        android:text="Enter Caretaker Name"
+        android:textAppearance="@style/HeaderTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/caretakerID" />
@@ -39,7 +40,8 @@
         android:layout_marginBottom="@dimen/btn_mrgn"
         android:background="@drawable/button"
         android:onClick="onClickDone"
-        android:text="Done"
+        android:text="Back"
+        android:textAppearance="@style/ButtonTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -47,24 +49,25 @@
         android:id="@+id/caretakerEdit"
         android:layout_width="@dimen/button_width"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/btn_mrgn"
         android:layout_marginBottom="@dimen/btn_mrgn"
         android:background="@drawable/button"
         android:onClick="handleEditCaretaker"
-        android:text="edit"
+        android:text="Add"
+        android:textAppearance="@style/ButtonTheme"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/caretakerDelete"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toEndOf="@+id/editCaretakerDone" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/caretakerDelete"
         android:layout_width="@dimen/button_width"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/btn_mrgn"
         android:layout_marginBottom="@dimen/btn_mrgn"
         android:background="@drawable/button"
         android:onClick="onClickDelete"
-        android:text="delete"
+        android:text="Delete"
+        android:textAppearance="@style/ButtonTheme"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/caretakerEdit"
+        app:layout_constraintStart_toEndOf="@+id/editCaretakerDone" />
 </androidx.constraintlayout.widget.ConstraintLayout>

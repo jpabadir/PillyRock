@@ -29,7 +29,7 @@ public class ViewEventActivity extends AppCompatActivity {
         setInfoOfEvent();
     }
 
-    public void onDoneClicked(View v) {
+    public void onBackClicked(View v) {
         finish();
     }
 
