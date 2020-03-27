@@ -36,6 +36,10 @@ public class EventListActivity extends AppCompatActivity implements EventListAda
         adapter = new EventListAdapter(this, medications);
         adapter.setClickListener(this);
         eventList.setAdapter(adapter);
+
+        if (medications.size() == 0) {
+            findViewById(R.id.deleteButton).setEnabled(false);
+        }
     }
 
     public List<Medication> loadMedicationsFromJSON() {
@@ -57,7 +61,7 @@ public class EventListActivity extends AppCompatActivity implements EventListAda
 
         List<Medication> result = new ArrayList<>();
         try {
-            for (int i = 0; i < events.length(); i ++) {
+            for (int i = 0; i < events.length(); i++) {
                 JSONObject obj = events.getJSONObject(i);
                 Medication medication = new Medication(obj);
                 result.add(medication);
