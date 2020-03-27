@@ -98,8 +98,8 @@
 
     <TextView
         android:id="@+id/timesTextView"
-        android:layout_width="367dp"
-        android:layout_height="104dp"
+        android:layout_width="368dp"
+        android:layout_height="90dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/textbox"
         android:textAppearance="@style/TextTheme"
@@ -146,8 +146,8 @@
 
     <TextView
         android:id="@+id/notesTextView"
-        android:layout_width="363dp"
-        android:layout_height="109dp"
+        android:layout_width="368dp"
+        android:layout_height="90dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/textbox"
         android:textAppearance="@style/TextTheme"
@@ -162,6 +162,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
+        android:button="@drawable/weekday_checkbox"
         android:enabled="false"
         app:layout_constraintEnd_toStartOf="@+id/thursday"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -172,6 +173,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
+        android:button="@drawable/weekday_checkbox"
         android:enabled="false"
         app:layout_constraintEnd_toStartOf="@+id/tuesday"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -182,6 +184,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
+        android:button="@drawable/weekday_checkbox"
         android:enabled="false"
         app:layout_constraintEnd_toStartOf="@+id/wednesday"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -191,6 +194,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:button="@drawable/weekday_checkbox"
         android:enabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -203,6 +207,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
+        android:button="@drawable/weekday_checkbox"
         android:enabled="false"
         app:layout_constraintStart_toEndOf="@+id/thursday"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -213,6 +218,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
+        android:button="@drawable/weekday_checkbox"
         android:enabled="false"
         app:layout_constraintStart_toEndOf="@+id/friday"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -223,9 +229,89 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
+        android:button="@drawable/weekday_checkbox"
         android:enabled="false"
         app:layout_constraintStart_toEndOf="@+id/saturday"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="M"
+        android:textAppearance="@style/ButtonTheme"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/monday"
+        app:layout_constraintEnd_toEndOf="@+id/monday"
+        app:layout_constraintStart_toStartOf="@+id/monday"
+        app:layout_constraintTop_toTopOf="@+id/monday"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="T"
+        android:textAppearance="@style/ButtonTheme"
+        app:layout_constraintBottom_toBottomOf="@+id/tuesday"
+        app:layout_constraintEnd_toEndOf="@+id/tuesday"
+        app:layout_constraintStart_toStartOf="@+id/tuesday"
+        app:layout_constraintTop_toTopOf="@+id/tuesday" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="W"
+        android:textAppearance="@style/ButtonTheme"
+        app:layout_constraintBottom_toBottomOf="@+id/wednesday"
+        app:layout_constraintEnd_toEndOf="@+id/wednesday"
+        app:layout_constraintStart_toStartOf="@+id/wednesday"
+        app:layout_constraintTop_toTopOf="@+id/wednesday" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="T"
+        android:textAppearance="@style/ButtonTheme"
+        app:layout_constraintBottom_toBottomOf="@+id/thursday"
+        app:layout_constraintEnd_toEndOf="@+id/thursday"
+        app:layout_constraintStart_toStartOf="@+id/thursday"
+        app:layout_constraintTop_toTopOf="@+id/thursday" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="F"
+        android:textAppearance="@style/ButtonTheme"
+        app:layout_constraintBottom_toBottomOf="@+id/friday"
+        app:layout_constraintEnd_toEndOf="@+id/friday"
+        app:layout_constraintStart_toStartOf="@+id/friday"
+        app:layout_constraintTop_toTopOf="@+id/friday" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="S"
+        android:textAppearance="@style/ButtonTheme"
+        app:layout_constraintBottom_toBottomOf="@+id/saturday"
+        app:layout_constraintEnd_toEndOf="@+id/saturday"
+        app:layout_constraintStart_toStartOf="@+id/saturday"
+        app:layout_constraintTop_toTopOf="@+id/saturday" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="S"
+        android:textAppearance="@style/ButtonTheme"
+        app:layout_constraintBottom_toBottomOf="@+id/sunday"
+        app:layout_constraintEnd_toEndOf="@+id/sunday"
+        app:layout_constraintStart_toStartOf="@+id/sunday"
+        app:layout_constraintTop_toTopOf="@+id/sunday" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
