@@ -9,26 +9,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.Scanner;
 
-public class CaretakerActivity extends AppCompatActivity {
-
+public class CaretakerActivity extends AppCompatActivity
+        implements DeleteCaretakerDialog.NoticeDialogListener {
     JSONObject caretaker;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_caretaker);
         setCaretaker();
     }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -89,6 +87,16 @@ public class CaretakerActivity extends AppCompatActivity {
 
     public void onClickDelete(View view) {
         // delete the caretaker.json data
+        DeleteCaretakerDialog dialog = new DeleteCaretakerDialog();
+        dialog.show(getSupportFragmentManager(), "deleteCaretaker");
+    }
+
+    // The dialog fragment receives a reference to this Activity through the
+    // Fragment.onAttach() callback, which it uses to call the following methods
+    // defined by the NoticeDialogFragment.NoticeDialogListener interface
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        // User touched the dialog's positive button
         try {
             FileOutputStream outputStream = openFileOutput("caretaker.json", MODE_PRIVATE);
             JSONObject caretaker = new JSONObject();
@@ -110,6 +118,14 @@ public class CaretakerActivity extends AppCompatActivity {
         id.setText("No caretaker added");
         name.setText("");
         ((Button) findViewById(R.id.caretakerEdit)).setText("Add");
-
     }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        // User touched the dialog's negative button
+        // do nothing
+    }
+
 }
+
+
