@@ -1,8 +1,5 @@
 package com.example.pillyrock;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +7,9 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,7 +21,8 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class AddEditEventActivity extends AppCompatActivity {
+public class AddEditEventActivity extends AppCompatActivity
+        implements DeleteTimeDialog.NoticeDialogListener {
     int eventIndex;
     String mode;
 
@@ -49,9 +50,19 @@ public class AddEditEventActivity extends AppCompatActivity {
     }
 
     public void onClearTimesClicked(View v) {
+        DeleteTimeDialog dialog = new DeleteTimeDialog();
+        dialog.show(getSupportFragmentManager(), "deleteTime");
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
         ((TextView) findViewById(R.id.timesTextView)).setText("");
     }
 
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        return; // do nothing
+    }
     public void onSaveClicked(View v) {
         if (!getFirstEmptyRequiredField().isEmpty()) {
             Toast.makeText(getApplicationContext(), "Please enter a " + getFirstEmptyRequiredField(), Toast.LENGTH_SHORT).show();

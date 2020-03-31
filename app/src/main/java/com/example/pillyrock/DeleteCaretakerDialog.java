@@ -3,7 +3,6 @@ package com.example.pillyrock;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
@@ -31,16 +30,8 @@ public class DeleteCaretakerDialog extends DialogFragment {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("Are you sure you want to delete this caretaker?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        listener.onDialogPositiveClick(DeleteCaretakerDialog.this);
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        listener.onDialogNegativeClick(DeleteCaretakerDialog.this);
-                    }
-                });
+                .setPositiveButton("Yes", (dialog, id) -> listener.onDialogPositiveClick(DeleteCaretakerDialog.this))
+                .setNegativeButton("No", (dialog, id) -> listener.onDialogNegativeClick(DeleteCaretakerDialog.this));
         // Create the AlertDialog object and return it
         return builder.create();
     }
@@ -51,7 +42,6 @@ public class DeleteCaretakerDialog extends DialogFragment {
      * Each method passes the DialogFragment in case the host needs to query it. */
     public interface NoticeDialogListener {
         void onDialogPositiveClick(DialogFragment dialog);
-
         void onDialogNegativeClick(DialogFragment dialog);
     }
 }
