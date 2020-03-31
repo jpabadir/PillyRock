@@ -86,6 +86,12 @@
             android:layout_weight="0.8"
             android:text="Dose"
             android:textAppearance="@style/HeaderTheme" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.9" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
