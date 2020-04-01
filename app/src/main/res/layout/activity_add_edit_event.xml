@@ -254,13 +254,13 @@
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="94dp"
-        android:layout_height="32dp"
+        android:layout_width="141dp"
+        android:layout_height="33dp"
         android:background="@drawable/textbox"
         android:onClick="onClearTimesClicked"
-        android:text="Clear times"
+        android:text="Remove last time"
         android:textAppearance="@style/ButtonTheme"
-        android:textSize="10sp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/timesTextView"
         app:layout_constraintTop_toTopOf="@+id/timesTextView" />
 
