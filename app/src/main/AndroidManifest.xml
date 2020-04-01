@@ -16,7 +16,9 @@
         <activity
             android:name=".CaretakerActivity"
             android:label="Caretaker"/>
-        <activity android:name=".DeleteEventActivity"></activity>
+        <activity
+            android:name=".DeleteEventActivity"
+            android:label="Delete Events" />
         <activity
             android:name=".NotificationSettingsActivity"
             android:label="Notification Settings">
@@ -27,7 +29,9 @@
         <activity
             android:name=".AddEditEventActivity"
             android:exported="true" />
-        <activity android:name=".EventListActivity" />
+        <activity
+            android:name=".EventListActivity"
+            android:label="Medication Event List" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
