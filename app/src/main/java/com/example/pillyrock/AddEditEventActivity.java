@@ -21,7 +21,9 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class AddEditEventActivity extends AppCompatActivity {
+public class AddEditEventActivity extends AppCompatActivity
+        implements DeleteDialog.NoticeDialogListener {
+        
     int eventIndex;
     String mode;
 
@@ -54,6 +56,12 @@ public class AddEditEventActivity extends AppCompatActivity {
     }
 
     public void onClearTimesClicked(View v) {
+        DeleteDialog dialog = new DeleteDialog();
+        dialog.show(getSupportFragmentManager(), "deleteTime");
+    }
+
+
+    public void onDialogPositiveClick(DialogFragment dialog) {
         String[] times = getTimes();
         String[] newTimes = new String[times.length - 1];
 
@@ -68,6 +76,11 @@ public class AddEditEventActivity extends AppCompatActivity {
             String formattedTimes = String.join("\n", newTimes);
             ((TextView) findViewById(R.id.timesTextView)).setText(formattedTimes + "\n");
         }
+    }
+
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        return; // do nothing
+    }
     }
 
     public void onSaveClicked(View v) {
