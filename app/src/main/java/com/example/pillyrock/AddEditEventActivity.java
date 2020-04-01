@@ -37,6 +37,10 @@ public class AddEditEventActivity extends AppCompatActivity {
             eventIndex = intent.getIntExtra("eventIndex", -1);
             setInfoOfEvent();
         }
+
+        if (getTimes()[0] == "noTimes") {
+            findViewById(R.id.removeLastTimeButton).setEnabled(false);
+        }
     }
 
     public void showTimePickerDialog(View v) {
@@ -51,11 +55,17 @@ public class AddEditEventActivity extends AppCompatActivity {
     public void onClearTimesClicked(View v) {
         String[] times = getTimes();
         String[] newTimes = new String[times.length - 1];
-        for (int i = 0; i < newTimes.length; i++) {
-            newTimes[i] = times[i];
+
+        if (newTimes.length == 0) {
+            findViewById(R.id.removeLastTimeButton).setEnabled(false);
+            ((TextView) findViewById(R.id.timesTextView)).setText("");
+        } else {
+            for (int i = 0; i < newTimes.length; i++) {
+                newTimes[i] = times[i];
+            }
+            String formattedTimes = String.join("\n", newTimes);
+            ((TextView) findViewById(R.id.timesTextView)).setText(formattedTimes + "\n");
         }
-        String formattedTimes = String.join("\n", newTimes);
-        ((TextView) findViewById(R.id.timesTextView)).setText(formattedTimes + "\n");
     }
 
     public void onSaveClicked(View v) {
