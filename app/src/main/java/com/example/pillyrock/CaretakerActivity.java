@@ -21,12 +21,14 @@ import java.util.Scanner;
 public class CaretakerActivity extends AppCompatActivity
         implements DeleteCaretakerDialog.NoticeDialogListener {
     JSONObject caretaker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_caretaker);
         setCaretaker();
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -44,14 +46,18 @@ public class CaretakerActivity extends AppCompatActivity
 
             TextView id = findViewById(R.id.caretakerID);
             TextView name = findViewById(R.id.caretakerName);
-            if(caretaker.getString("caretakerID").isEmpty()) {
+            if (caretaker.getString("caretakerID").isEmpty()) {
                 id.setText("No caretaker added");
                 name.setText("");
                 ((Button) findViewById(R.id.caretakerEdit)).setText("Add");
+                findViewById(R.id.caretakerDelete).setEnabled(false);
+                findViewById(R.id.caretakerDelete).setAlpha(0.75F);
             } else {
                 id.setText("Caretaker ID: " + caretaker.getString("caretakerID"));
                 name.setText("Caretaker Name: " + caretaker.getString("caretakerName"));
                 ((Button) findViewById(R.id.caretakerEdit)).setText("Edit");
+                findViewById(R.id.caretakerDelete).setEnabled(true);
+                findViewById(R.id.caretakerDelete).setAlpha(1F);
             }
         } catch (FileNotFoundException e) {
             // send toast message to user if caretaker.json does not exist
@@ -118,6 +124,8 @@ public class CaretakerActivity extends AppCompatActivity
         id.setText("No caretaker added");
         name.setText("");
         ((Button) findViewById(R.id.caretakerEdit)).setText("Add");
+        findViewById(R.id.caretakerDelete).setEnabled(false);
+        findViewById(R.id.caretakerDelete).setAlpha(0.75F);
     }
 
     @Override
