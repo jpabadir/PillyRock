@@ -23,6 +23,7 @@ import java.util.Scanner;
 
 public class AddEditEventActivity extends AppCompatActivity
         implements DeleteDialog.NoticeDialogListener {
+        
     int eventIndex;
     String mode;
 
@@ -37,6 +38,11 @@ public class AddEditEventActivity extends AppCompatActivity
         if (mode.equals("Edit Event")) {
             eventIndex = intent.getIntExtra("eventIndex", -1);
             setInfoOfEvent();
+        }
+
+        if (getTimes()[0] == "noTimes") {
+            findViewById(R.id.removeLastTimeButton).setEnabled(false);
+            findViewById(R.id.removeLastTimeButton).setAlpha(0.75F);
         }
     }
 
@@ -56,12 +62,27 @@ public class AddEditEventActivity extends AppCompatActivity
 
 
     public void onDialogPositiveClick(DialogFragment dialog) {
-        ((TextView) findViewById(R.id.timesTextView)).setText("");
+        String[] times = getTimes();
+        String[] newTimes = new String[times.length - 1];
+
+        if (newTimes.length == 0) {
+            findViewById(R.id.removeLastTimeButton).setEnabled(false);
+            findViewById(R.id.removeLastTimeButton).setAlpha(0.75F);
+            ((TextView) findViewById(R.id.timesTextView)).setText("");
+        } else {
+            for (int i = 0; i < newTimes.length; i++) {
+                newTimes[i] = times[i];
+            }
+            String formattedTimes = String.join("\n", newTimes);
+            ((TextView) findViewById(R.id.timesTextView)).setText(formattedTimes + "\n");
+        }
     }
 
     public void onDialogNegativeClick(DialogFragment dialog) {
         return; // do nothing
     }
+    }
+
     public void onSaveClicked(View v) {
         if (!getFirstEmptyRequiredField().isEmpty()) {
             Toast.makeText(getApplicationContext(), "Please enter a " + getFirstEmptyRequiredField(), Toast.LENGTH_SHORT).show();

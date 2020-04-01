@@ -35,4 +35,12 @@
         android:layout_weight="0.8"
         android:text="5mg"
         android:textAppearance="@style/TextTheme" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.9"
+        android:text="Edit"
+        android:textAppearance="@style/TextTheme" />
 </LinearLayout>
