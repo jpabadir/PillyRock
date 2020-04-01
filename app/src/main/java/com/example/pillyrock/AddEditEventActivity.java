@@ -81,7 +81,6 @@ public class AddEditEventActivity extends AppCompatActivity
     public void onDialogNegativeClick(DialogFragment dialog) {
         return; // do nothing
     }
-    }
 
     public void onSaveClicked(View v) {
         if (!getFirstEmptyRequiredField().isEmpty()) {
