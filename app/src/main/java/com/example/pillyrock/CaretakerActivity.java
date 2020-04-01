@@ -49,8 +49,8 @@ public class CaretakerActivity extends AppCompatActivity
                 name.setText("");
                 ((Button) findViewById(R.id.caretakerEdit)).setText("Add");
             } else {
-                id.setText(caretaker.getString("caretakerID"));
-                name.setText(caretaker.getString("caretakerName"));
+                id.setText("Caretaker ID: " + caretaker.getString("caretakerID"));
+                name.setText("Caretaker Name: " + caretaker.getString("caretakerName"));
                 ((Button) findViewById(R.id.caretakerEdit)).setText("Edit");
             }
         } catch (FileNotFoundException e) {
