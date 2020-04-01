@@ -39,6 +39,7 @@ public class TimePickerFragment extends DialogFragment
 
 
         getActivity().findViewById(R.id.removeLastTimeButton).setEnabled(true);
+        getActivity().findViewById(R.id.removeLastTimeButton).setAlpha(1F);
     }
 
 }

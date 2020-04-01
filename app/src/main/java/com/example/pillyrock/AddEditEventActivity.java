@@ -40,6 +40,7 @@ public class AddEditEventActivity extends AppCompatActivity {
 
         if (getTimes()[0] == "noTimes") {
             findViewById(R.id.removeLastTimeButton).setEnabled(false);
+            findViewById(R.id.removeLastTimeButton).setAlpha(0.75F);
         }
     }
 
@@ -58,6 +59,7 @@ public class AddEditEventActivity extends AppCompatActivity {
 
         if (newTimes.length == 0) {
             findViewById(R.id.removeLastTimeButton).setEnabled(false);
+            findViewById(R.id.removeLastTimeButton).setAlpha(0.75F);
             ((TextView) findViewById(R.id.timesTextView)).setText("");
         } else {
             for (int i = 0; i < newTimes.length; i++) {
