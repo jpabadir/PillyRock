@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AddEditEventActivity extends AppCompatActivity
-        implements DeleteTimeDialog.NoticeDialogListener {
+        implements DeleteDialog.NoticeDialogListener {
     int eventIndex;
     String mode;
 
@@ -50,16 +50,15 @@ public class AddEditEventActivity extends AppCompatActivity
     }
 
     public void onClearTimesClicked(View v) {
-        DeleteTimeDialog dialog = new DeleteTimeDialog();
+        DeleteDialog dialog = new DeleteDialog();
         dialog.show(getSupportFragmentManager(), "deleteTime");
     }
 
-    @Override
+
     public void onDialogPositiveClick(DialogFragment dialog) {
         ((TextView) findViewById(R.id.timesTextView)).setText("");
     }
 
-    @Override
     public void onDialogNegativeClick(DialogFragment dialog) {
         return; // do nothing
     }

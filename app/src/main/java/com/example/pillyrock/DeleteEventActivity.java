@@ -1,6 +1,7 @@
 package com.example.pillyrock;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class DeleteEventActivity extends AppCompatActivity implements DeleteListAdapter.ItemClickListener {
+public class DeleteEventActivity extends AppCompatActivity implements DeleteListAdapter.ItemClickListener, DeleteDialog.NoticeDialogListener {
 
     DeleteListAdapter adapter;
 
@@ -80,6 +81,14 @@ public class DeleteEventActivity extends AppCompatActivity implements DeleteList
     }
 
     public void handleDelete(View view) {
+        //todo add dialog here
+        DeleteDialog dialog = new DeleteDialog();
+        dialog.show(getSupportFragmentManager(), "deleteEvent");
+
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
         JSONArray events = new JSONArray();
         try {
             FileInputStream inputStream = openFileInput("events.json");
@@ -115,5 +124,10 @@ public class DeleteEventActivity extends AppCompatActivity implements DeleteList
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        return;
     }
 }

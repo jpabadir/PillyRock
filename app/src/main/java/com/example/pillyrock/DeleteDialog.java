@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
 
-public class DeleteTimeDialog extends DialogFragment {
+public class DeleteDialog extends DialogFragment {
     NoticeDialogListener listener;
 
     @Override
@@ -23,9 +23,9 @@ public class DeleteTimeDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Are you sure you want to clear?")
-                .setPositiveButton("Yes", (dialog, id) -> listener.onDialogPositiveClick(DeleteTimeDialog.this))
-                .setNegativeButton("No", ((dialog, id) -> listener.onDialogNegativeClick(DeleteTimeDialog.this)));
+        builder.setMessage("Are you sure you want to delete?")
+                .setPositiveButton("Yes", (dialog, id) -> listener.onDialogPositiveClick(DeleteDialog.this))
+                .setNegativeButton("No", ((dialog, id) -> listener.onDialogNegativeClick(DeleteDialog.this)));
         return builder.create();
     }
 
