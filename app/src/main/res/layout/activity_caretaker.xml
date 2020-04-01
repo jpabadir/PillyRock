@@ -8,6 +8,19 @@
     tools:context=".CaretakerActivity">
 
     <TextView
+        android:id="@+id/caretakerHelpText"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        android:text="A caretaker is a separate PillyRock user who you have connected to your account to receive notifications and reminders about your medication events. Note that caretakers have access to any medical information you have disclosed within your account. You can add a caretaker using the Caretaker ID found in their PillyRock account page."
+        android:textAppearance="@style/HeaderTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/caretakerID"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
@@ -18,7 +31,7 @@
         android:textAppearance="@style/HeaderTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/caretakerHelpText" />
 
     <TextView
         android:id="@+id/caretakerName"
