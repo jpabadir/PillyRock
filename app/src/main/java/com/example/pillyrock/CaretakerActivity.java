@@ -72,14 +72,17 @@ public class CaretakerActivity extends AppCompatActivity
 
     public void handleEditCaretaker(View view) {
         try {
+            FileInputStream inputStream = openFileInput("caretaker.json");
+            Scanner in = new Scanner(inputStream);
+            String json = in.nextLine();
+            in.close();
+            caretaker = new JSONObject(json);
+
             Intent intent = new Intent(this, EditCaretakerActivity.class);
             Bundle bundle = new Bundle();
 
-            TextView id = findViewById(R.id.caretakerID);
-            TextView name = findViewById(R.id.caretakerName);
-
-            bundle.putString("caretakerID", id.getText().toString());
-            bundle.putString("caretakerName", name.getText().toString());
+            bundle.putString("caretakerID", caretaker.getString("caretakerID"));
+            bundle.putString("caretakerName", caretaker.getString("caretakerName"));
             intent.putExtras(bundle);
             startActivity(intent);
         } catch (Exception e) {
